@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Throughput: production stats for Minecraft factories</title>
+<meta name="description" content="Factorio-style production statistics for any Minecraft factory. Per-item rates, sparklines and bottleneck alerts in chat. Fabric, server-side, vanilla clients can join.">
+<meta name="theme-color" content="#0d1016">
+<link rel="canonical" href="https://razekteixeira.github.io/throughput/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Throughput">
+<meta property="og:description" content="Factorio-style production statistics for any Minecraft factory. Server-side Fabric mod.">
+<meta property="og:url" content="https://razekteixeira.github.io/throughput/">
+<meta property="og:image" content="https://razekteixeira.github.io/throughput/media/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Throughput home">
+      <img src="favicon.png" width="32" height="32" alt="">
+      <span>Throughput</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#counting">How it counts</a></li>
+        <li><a href="#commands">Commands</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="nav-gh" href="https://github.com/razekteixeira/throughput">GitHub</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero: copy left, in-game frame right with chat overlapping its lower edge -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="pixel">Throughput</h1>
+        <p class="pitch">Factorio-style production stats for any Minecraft factory.</p>
+        <p class="sub">Group chests, furnaces and modded storage into a factory, then read per-item rates, history and alerts right in chat.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://modrinth.com/mod/throughput">Download on Modrinth</a>
+          <a class="btn btn-ghost" href="https://github.com/razekteixeira/throughput">Source on GitHub</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <figure class="frame">
+          <img src="media/hero.png" width="1280" height="720" alt="A hopper-fed furnace setup tracked as the factory named smelter">
+        </figure>
+        <div class="chat" role="img" aria-label="Chat output of /flow stats smelter 10m and /flow alerts smelter, from the run shown in the screenshots">
+          <p class="l"><span class="c-gold">Factory </span><span class="c-yellow b">smelter</span><span class="c-gray"> | last 10m (sampled 2m 30s) | 30 containers</span></p>
+          <p class="l"><span class="c-green u">Produced per minute</span></p>
+          <p class="l"><span class="c-green">  +30.4 </span><span class="c-white">Iron Ingot</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▁</span></p>
+          <p class="l"><span class="c-red u">Consumed per minute</span></p>
+          <p class="l"><span class="c-red">  -30.4 </span><span class="c-white">Raw Iron</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▁</span></p>
+          <p class="l"><span class="c-red">  -4.4 </span><span class="c-white">Coal</span><span class="c-aqua spark"> ▁▁▁▁▁▁▁█▁▁▁▁▁▁▁</span></p>
+          <p class="l"><span class="c-gold">Alerts for </span><span class="c-yellow b">smelter</span><span class="c-gray"> (9)</span></p>
+          <p class="l"><span class="c-white">  </span><span class="c-red">BLOCKED </span><span class="c-gray">1 container full for 2m 31s</span></p>
+          <p class="l"><span class="c-white">  </span><span class="c-purple">RUNNING OUT </span><span class="c-white">Raw Iron</span><span class="c-gray"> empty in about 22m 48s</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Captures: one wide frame, two below -->
+  <section class="captures" aria-labelledby="captures-title">
+    <div class="wrap">
+      <h2 class="pixel" id="captures-title">In game</h2>
+      <div class="capture-grid">
+        <figure class="cap cap-wide">
+          <img src="media/stats.png" width="1280" height="720" loading="lazy" alt="Stats report for a factory in Minecraft chat, with rates and sparklines">
+          <figcaption><code>/flow stats smelter 10m</code> Top items with per-minute rates and history.</figcaption>
+        </figure>
+        <figure class="cap">
+          <img src="media/alerts.png" width="1280" height="720" loading="lazy" alt="Alerts report listing a running-out input">
+          <figcaption><code>/flow alerts smelter</code> What is blocked, dry, missing or about to run out.</figcaption>
+        </figure>
+        <figure class="cap">
+          <img src="media/watch.gif" width="1280" height="720" loading="lazy" alt="Live production ticker on the action bar">
+          <figcaption><code>/flow watch smelter</code> A live ticker on your action bar while you build.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features: asymmetric bento, 6 cells -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <h2 class="pixel" id="features-title">What it tracks</h2>
+      <div class="bento">
+        <article class="cell cell-rates graph">
+          <h3>Per-item rates over four windows</h3>
+          <p>Produced and consumed per minute, averaged over the last 1m, 10m, 1h or 10h, with a sparkline of the window next to every item.</p>
+          <div class="windows" aria-hidden="true">
+            <span>1m</span><span>10m</span><span class="on">1h</span><span>10h</span>
+          </div>
+          <p class="mono-line" aria-hidden="true"><span class="c-green">+6.0</span> <span class="c-white">Iron Ingot</span> <span class="c-aqua spark">▆███████▅</span></p>
+        </article>
+
+        <article class="cell cell-server tint">
+          <h3>Server-side only</h3>
+          <p>Install it on the server. Players join with an unmodified client and still get every report in chat.</p>
+        </article>
+
+        <article class="cell cell-any">
+          <h3>Any container</h3>
+          <p>Chests, barrels, furnaces, hoppers, and modded storage that exposes Fabric item storage, which most tech mods do.</p>
+        </article>
+
+        <article class="cell cell-alerts">
+          <h3>Alerts that point at the bottleneck</h3>
+          <dl class="alert-kinds">
+            <div><dt class="c-red">BLOCKED</dt><dd>An output has been full for a while, so whatever feeds it is backing up.</dd></div>
+            <div><dt class="c-yellow">RAN DRY</dt><dd>An input is empty, so anything it feeds stalls once its buffers drain.</dd></div>
+            <div><dt class="k-missing">MISSING</dt><dd>A container is unloaded or no longer a container.</dd></div>
+            <div><dt class="c-purple">RUNNING OUT</dt><dd>An input is draining, with an estimate of when it hits empty.</dd></div>
+          </dl>
+        </article>
+
+        <article class="cell cell-watch">
+          <h3>Live ticker</h3>
+          <p><code>/flow watch</code> puts the top output, top input and alert count on your action bar, updated as the factory runs. <code>/flow unwatch</code> clears it.</p>
+        </article>
+
+        <article class="cell cell-perm graph">
+          <h3>Safe to open to players</h3>
+          <p>Anyone can read stats. Creating and editing factories needs operator permission, and alert coordinates are only shown to people allowed to see them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it counts: diagram then rules -->
+  <section class="counting" id="counting" aria-labelledby="counting-title">
+    <div class="wrap">
+      <h2 class="pixel" id="counting-title">How it counts</h2>
+      <p class="lead">Every second of game time, Throughput reads each tracked container and adds up the per-item change. The sum is the factory's real net production.</p>
+
+      <div class="flow" role="img" aria-label="Diagram: raw iron moves from an input chest into a furnace and ingots move into an output chest. Moves inside the factory net to zero; only smelting changes the totals.">
+        <div class="flow-boundary">
+          <span class="flow-tag">factory smelter</span>
+          <div class="flow-row">
+            <div class="node">
+              <span class="node-name">Input chest</span>
+              <span class="node-item">Raw Iron</span>
+            </div>
+            <div class="edge">
+              <span class="edge-line" aria-hidden="true"></span>
+              <span class="edge-note">moved inside: <b>net 0</b></span>
+            </div>
+            <div class="node node-hot">
+              <span class="node-name">Furnace</span>
+              <span class="node-item"><span class="c-red">-1</span> Raw Iron<br><span class="c-green">+1</span> Iron Ingot</span>
+            </div>
+            <div class="edge">
+              <span class="edge-line" aria-hidden="true"></span>
+              <span class="edge-note">moved inside: <b>net 0</b></span>
+            </div>
+            <div class="node">
+              <span class="node-name">Output chest</span>
+              <span class="node-item">Iron Ingot</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h3>Internal moves cancel out</h3>
+          <p>A hopper taking ore from one tracked chest into a tracked furnace is a minus in one place and a plus in the other. The factory total does not change.</p>
+        </div>
+        <div class="rule">
+          <h3>No phantom consumption</h3>
+          <p>A container that unloads or breaks contributes nothing. A chunk unloading never looks like the factory ate everything; it shows up as MISSING instead.</p>
+        </div>
+        <div class="rule">
+          <h3>Double chests count once</h3>
+          <p>Adding a double chest tracks both halves, and each half is read on its own, so items are never counted twice.</p>
+        </div>
+        <div class="rule">
+          <h3>Game time, saved with the world</h3>
+          <p>History follows game time and is stored with the world, so it survives restarts and pauses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commands: quick start terminal left, grouped reference right -->
+  <section class="commands" id="commands" aria-labelledby="commands-title">
+    <div class="wrap commands-grid">
+      <div class="commands-intro">
+        <h2 class="pixel" id="commands-title">Commands</h2>
+        <p><code>/throughput</code> and the short alias <code>/flow</code> do the same thing. A first factory takes three commands:</p>
+        <pre class="term"><code><span class="t-p">&gt;</span> /flow factory create smelter
+<span class="t-p">&gt;</span> /flow addarea smelter ~-4 ~-1 ~-4 ~4 ~2 ~4
+<span class="t-p">&gt;</span> /flow stats smelter 10m</code></pre>
+        <p class="note">Reading is open to everyone. Changing factories needs operator permission by default, or the matching node with a permissions mod.</p>
+      </div>
+
+      <div class="commands-table">
+        <table>
+          <caption class="sr">Throughput commands</caption>
+          <thead class="sr"><tr><th scope="col">Command</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr class="group"><th colspan="2" scope="colgroup">Set up a factory</th></tr>
+            <tr><td><code>factory create &lt;name&gt;</code></td><td>New factory in your current dimension.</td></tr>
+            <tr><td><code>factory delete &lt;name&gt;</code></td><td>Delete a factory and its history.</td></tr>
+            <tr><td><code>factory list</code></td><td>List every factory on the server.</td></tr>
+            <tr><td><code>add &lt;factory&gt; [pos]</code></td><td>Track the container you look at, or the one at <code>pos</code>. Double chests add both halves.</td></tr>
+            <tr><td><code>addarea &lt;factory&gt; &lt;from&gt; &lt;to&gt;</code></td><td>Track every container inside a box.</td></tr>
+            <tr><td><code>remove &lt;factory&gt; [pos]</code></td><td>Stop tracking a container.</td></tr>
+          </tbody>
+          <tbody>
+            <tr class="group"><th colspan="2" scope="colgroup">Read it</th></tr>
+            <tr><td><code>stats &lt;factory&gt; [1m|10m|1h|10h]</code></td><td>Top produced and consumed items with rates and sparklines.</td></tr>
+            <tr><td><code>alerts &lt;factory&gt;</code></td><td>Blocked outputs, dry inputs, missing containers and time to empty.</td></tr>
+            <tr><td><code>watch &lt;factory&gt;</code></td><td>Live ticker on your action bar.</td></tr>
+            <tr><td><code>unwatch</code></td><td>Stop the ticker.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install: two columns -->
+  <section class="install" id="install" aria-labelledby="install-title">
+    <div class="wrap">
+      <h2 class="pixel" id="install-title">Install</h2>
+      <p class="lead">Needs Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API and Java 25.</p>
+      <div class="install-grid">
+        <div class="install-col">
+          <h3>On a server</h3>
+          <ol class="steps">
+            <li><span>Set up a Fabric server for Minecraft 26.3.</span></li>
+            <li><span>Put the Throughput jar and Fabric API in the server's <code>mods/</code> folder.</span></li>
+            <li><span>Restart. Players join with a vanilla client, nothing to install on their side.</span></li>
+          </ol>
+        </div>
+        <div class="install-col">
+          <h3>In singleplayer</h3>
+          <ol class="steps">
+            <li><span>Install Fabric Loader for 26.3 with the Fabric installer.</span></li>
+            <li><span>Put the Throughput jar and Fabric API in <code>.minecraft/mods/</code>.</span></li>
+            <li><span>Start the Fabric profile and open a world with commands allowed.</span></li>
+          </ol>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="https://modrinth.com/mod/throughput">Download on Modrinth</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-wrap">
+      <h2 class="pixel" id="faq-title">FAQ</h2>
+      <div class="qa">
+        <details>
+          <summary>Do players need to install anything?</summary>
+          <p>No. Throughput runs on the server only and sends plain chat and action-bar text, so vanilla 26.3 clients can join and use every command they have permission for.</p>
+        </details>
+        <details>
+          <summary>Will it slow my server down?</summary>
+          <p>It only reads the containers you add to a factory, once per second of game time. Server owners can cap the size of <code>addarea</code> boxes and the number of containers per factory in the config.</p>
+        </details>
+        <details>
+          <summary>Does it work with modded storage?</summary>
+          <p>Yes, for any block that exposes Fabric item storage (the Transfer API). Most tech mods do, so drawers, crates and machine inventories usually just work.</p>
+        </details>
+        <details>
+          <summary>What about fluids and energy?</summary>
+          <p>Not yet. Throughput tracks items only for now.</p>
+        </details>
+        <details>
+          <summary>Are enchanted or renamed items counted separately?</summary>
+          <p>No. Items are grouped by item id, so an enchanted pickaxe and a plain one count as the same item.</p>
+        </details>
+        <details>
+          <summary>Can regular players see where my factory is?</summary>
+          <p>Only if you let them. Alerts show container coordinates to operators (or anyone with <code>throughput.coordinates</code>) and leave them out for everyone else.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="favicon.png" width="32" height="32" alt="">
+      <span class="pixel">Throughput</span>
+    </div>
+    <ul class="foot-links">
+      <li><a href="https://modrinth.com/mod/throughput">Modrinth</a></li>
+      <li><a href="https://github.com/razekteixeira/throughput">GitHub</a></li>
+      <li><a href="https://github.com/razekteixeira/throughput/issues">Report an issue</a></li>
+    </ul>
+    <p class="foot-legal">Released under the <a href="https://github.com/razekteixeira/throughput/blob/main/LICENSE">Apache License 2.0</a>.</p>
+    <p class="foot-disclaimer">NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "throughput-gametest",
+	"version": "1.0.0",
+	"name": "Throughput GameTests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"io.github.razekteixeira.throughput.gametest.ThroughputGameTests"
+		],
+		"fabric-client-gametest": [
+			"io.github.razekteixeira.throughput.gametest.client.ThroughputCaptures"
+		]
+	},
+	"depends": {
+		"throughput": "*"
+	}
+}

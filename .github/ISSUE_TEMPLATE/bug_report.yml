@@ -1,0 +1,36 @@
+name: Bug report
+description: Something is wrong or crashes
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The factory layout and the commands you ran help a lot.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Minecraft, Fabric Loader, Fabric API, Throughput
+      placeholder: 26.3, 0.19.5, 0.162.0+26.3, 1.0.0-beta.1
+    validations:
+      required: true
+  - type: textarea
+    id: mods
+    attributes:
+      label: Other mods
+      description: Especially storage or tech mods whose containers you track.
+  - type: textarea
+    id: log
+    attributes:
+      label: Log or crash report
+      description: Paste latest.log or link a paste service.
+      render: text

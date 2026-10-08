@@ -1,0 +1,1 @@
+Factorio-style production stats for any factory. Group containers, then read per-item rates over 1m to 10h, sparkline history and bottleneck alerts with time-to-empty in chat. Works with modded storage. Server-side; vanilla clients can join.

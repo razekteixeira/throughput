@@ -1,0 +1,63 @@
+# On a version tag: build and test, create the GitHub release, publish to Modrinth.
+name: release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Check the tag matches gradle.properties
+        run: |
+          version=$(grep '^version=' gradle.properties | cut -d= -f2)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match version=$version in gradle.properties"; exit 1
+          fi
+
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          awk -v v="$version" '$0 ~ "^## \\[" v "\\]" {found=1; next} found && /^## \[/ {exit} found {print}' CHANGELOG.md > build/release-notes.md
+          test -s build/release-notes.md || { echo "No CHANGELOG.md section for $version"; exit 1; }
+
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          flags=()
+          case "$version" in *-alpha*|*-beta*|*-rc*) flags+=(--prerelease) ;; esac
+          # Re-runnable: when a later step failed, the release already exists.
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            echo "Release $GITHUB_REF_NAME exists, skipping"
+          else
+            gh release create "$GITHUB_REF_NAME" "build/libs/throughput-${version}.jar" \
+              --title "Throughput ${version}" --notes-file build/release-notes.md "${flags[@]}"
+          fi
+
+      # The token is only exposed to the publish step, never to the build and tests.
+      - name: Check for the Modrinth token
+        id: token
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: echo "present=$([ -n "$MODRINTH_TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Modrinth
+        if: steps.token.outputs.present == 'true'
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: ./gradlew modrinth modrinthSyncBody --no-configuration-cache

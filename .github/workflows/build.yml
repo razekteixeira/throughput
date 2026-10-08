@@ -1,0 +1,32 @@
+# Compiles, runs unit tests and the server GameTests on every push and pull request.
+name: build
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Build and test
+        run: ./gradlew build
+      - name: Upload jar
+        uses: actions/upload-artifact@v7
+        with:
+          name: throughput-jar
+          path: build/libs/
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            build/reports/
+            build/run/gameTest/logs/

@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "throughput",
+	"version": "${version}",
+	"name": "Throughput",
+	"description": "Factorio-style production statistics for any factory: per-item rates over 1m/10m/1h/10h, history sparklines, time-to-empty and bottleneck alerts. Server-side; vanilla clients can join.",
+	"authors": [
+		"razekteixeira"
+	],
+	"contributors": [],
+	"contact": {
+		"homepage": "https://razekteixeira.github.io/throughput/",
+		"sources": "https://github.com/razekteixeira/throughput",
+		"issues": "https://github.com/razekteixeira/throughput/issues"
+	},
+	"license": "Apache-2.0",
+	"icon": "assets/throughput/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.razekteixeira.throughput.Throughput"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
