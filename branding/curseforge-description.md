@@ -112,7 +112,7 @@ Every second of game time, Throughput reads each tracked container and adds up t
 
 ## Compatibility
 
-- Minecraft **26.3**, Fabric Loader **0.19.5+**, **Fabric API**, Java **25**.
+- Minecraft **26.3**, Fabric Loader **0.19.5+**, [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) (required), Java **25**.
 - **Server:** required. **Client:** optional (vanilla clients can join).
 - Works with modded containers that expose Fabric item storage (the Transfer API).
 - Tracks items. Fluids and energy are not tracked yet.
@@ -123,7 +123,7 @@ Every second of game time, Throughput reads each tracked container and adds up t
 No. It runs on the server and sends plain chat and action-bar text.
 
 **Will it slow my server down?**
-It only reads the containers you add, once per second of game time. Server owners can cap `addarea` box size and containers per factory in the config.
+It only reads the containers you add, once per second of game time, and each factory samples on its own tick. A factory of 4,096 filled chests takes about 1.75 ms per sample (median, measured with the benchmark in the repository). Server owners can cap `addarea` box size and containers per factory in the config, and `/flow factory list` shows the cost on your own hardware.
 
 **Does it work with my storage mod?**
 If the block exposes Fabric item storage, yes. Most tech mods do.
@@ -136,6 +136,10 @@ No. Items are grouped by item id.
 
 **Can it run in singleplayer?**
 Yes. Install Fabric Loader for 26.3, put Throughput and Fabric API in your mods folder, and open a world with commands allowed.
+
+## Credits
+
+Throughput bundles [fabric-permissions-api](https://github.com/lucko/fabric-permissions-api) by lucko (MIT) for permission nodes; its licence ships inside the jar. Throughput itself is open source under the Apache License 2.0.
 
 ## Links
 

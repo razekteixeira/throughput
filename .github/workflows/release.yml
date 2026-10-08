@@ -1,4 +1,4 @@
-# On a version tag: build and test, create the GitHub release, publish to Modrinth.
+# On a version tag: build and test, create the GitHub release, publish to CurseForge.
 name: release
 on:
   push:
@@ -50,14 +50,18 @@ jobs:
           fi
 
       # The token is only exposed to the publish step, never to the build and tests.
-      - name: Check for the Modrinth token
+      - name: Check for the CurseForge token
         id: token
         env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-        run: echo "present=$([ -n "$MODRINTH_TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: echo "present=$([ -n "$CURSEFORGE_TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
-      - name: Publish to Modrinth
+      - name: Publish to CurseForge
         if: steps.token.outputs.present == 'true'
         env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-        run: ./gradlew modrinth modrinthSyncBody --no-configuration-cache
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: |
+          if ! grep -qE '^curseforge_project_id=[0-9]+$' gradle.properties; then
+            echo "Set curseforge_project_id in gradle.properties before releasing"; exit 1
+          fi
+          ./gradlew publishCurseforge

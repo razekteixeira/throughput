@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://modrinth.com/mod/throughput"><img alt="Modrinth" src="https://img.shields.io/modrinth/dt/throughput?logo=modrinth&label=Modrinth"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/throughput"><img alt="CurseForge" src="https://img.shields.io/badge/CurseForge-coming%20soon-f16436?logo=curseforge&logoColor=white"></a>
   <a href="https://github.com/razekteixeira/throughput/actions/workflows/build.yml"><img alt="Build" src="https://github.com/razekteixeira/throughput/actions/workflows/build.yml/badge.svg"></a>
   <img alt="Minecraft 26.3" src="https://img.shields.io/badge/Minecraft-26.3-6aa84f">
   <img alt="Fabric" src="https://img.shields.io/badge/loader-Fabric-dbd0b4">
@@ -103,7 +103,7 @@ tick. `/flow factory list` shows the last sample time of every factory on your h
 ## Install
 
 Throughput needs Minecraft **26.3**, [Fabric Loader](https://fabricmc.net/use/) 0.19.5 or newer,
-[Fabric API](https://modrinth.com/mod/fabric-api) and Java 25.
+[Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and Java 25.
 
 - **Server:** put the Throughput jar and Fabric API in the server's `mods/` folder.
 - **Singleplayer:** install Fabric Loader for 26.3 with your launcher, then put both jars in `.minecraft/mods`.

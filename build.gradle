@@ -1,6 +1,6 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
-	id 'com.modrinth.minotaur' version "${minotaur_version}"
+	id 'me.modmuss50.mod-publish-plugin' version "${mod_publish_version}"
 }
 
 base {
@@ -79,22 +79,31 @@ tasks.named("runGameTest") {
 	}
 }
 
-// Publishing to Modrinth: MODRINTH_TOKEN must be set (the release workflow passes a repository secret).
+// Publishing to CurseForge with modmuss50's mod-publish-plugin. Needs CURSEFORGE_TOKEN (the release
+// workflow passes a repository secret) and curseforge_project_id in gradle.properties. Without
+// either, it runs as a dry run: the upload is assembled under build/ but nothing leaves the machine.
 // Release notes come from build/release-notes.md, which the workflow extracts from CHANGELOG.md.
-modrinth {
-	token = providers.environmentVariable("MODRINTH_TOKEN")
-	projectId = "throughput"
-	versionNumber = project.version
-	versionName = "Throughput ${project.version}"
-	versionType = project.version.contains("alpha") ? "alpha"
-			: (project.version.contains("beta") || project.version.contains("rc")) ? "beta" : "release"
-	uploadFile = tasks.jar
-	gameVersions = [project.minecraft_version]
-	loaders = ["fabric"]
-	def notes = file("build/release-notes.md")
-	changelog = notes.exists() ? notes.text : "See CHANGELOG.md"
-	syncBodyFrom = file("branding/modrinth-description.md").text
-	dependencies {
-		required.project "fabric-api"
+def curseforgeToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+def curseforgeProject = project.findProperty("curseforge_project_id")?.toString() ?: ""
+def releaseNotes = file("build/release-notes.md")
+publishMods {
+	file = jar.archiveFile
+	displayName = "Throughput ${project.version}"
+	type = project.version.contains("alpha") ? ALPHA
+			: (project.version.contains("beta") || project.version.contains("rc")) ? BETA : STABLE
+	modLoaders.add("fabric")
+	changelog = releaseNotes.exists() ? releaseNotes.text : "See CHANGELOG.md"
+	dryRun = curseforgeToken.getOrNull() == null || curseforgeProject.isEmpty()
+
+	curseforge {
+		accessToken = curseforgeToken
+		projectId = curseforgeProject.isEmpty() ? "0" : curseforgeProject
+		projectSlug = "throughput"
+		minecraftVersions.add(project.minecraft_version)
+		javaVersions.add(JavaVersion.VERSION_25)
+		// Runs on dedicated servers, and in singleplayer when installed on the client.
+		client = true
+		server = true
+		requires("fabric-api")
 	}
 }

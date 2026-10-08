@@ -6,7 +6,7 @@ Inputs (run branding/make_media.sh and branding/render_logo3d.py first):
   branding/logo3d.png           Blender render of the icon
 
 Outputs:
-  site/media/banner.png         1920x1080, Modrinth featured gallery image
+  site/media/banner.png         1920x1080, CurseForge gallery and description header
   site/media/social.png         1280x640, GitHub social preview and link previews (og:image)
   site/media/readme-header.png  1600x480, top of the README
 
