@@ -1,6 +1,8 @@
 # Contributing to Throughput
 
-Thanks for helping. Issues, ideas and pull requests are all welcome.
+Thanks for helping. Issues, ideas and pull requests are all welcome. Please follow the
+[Code of Conduct](CODE_OF_CONDUCT.md), and report security problems privately as described in
+[SECURITY.md](SECURITY.md).
 
 ## Setup
 

@@ -73,7 +73,7 @@
         <p class="pitch">Factorio-style production stats for any Minecraft factory.</p>
         <p class="sub">Group chests, furnaces and modded storage into a factory, then read per-item rates, history and alerts right in chat.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" data-curseforge href="https://github.com/razekteixeira/throughput">Coming soon to CurseForge</a>
+          <a class="btn btn-primary" href="https://www.curseforge.com/minecraft/mc-mods/throughput">Get it on CurseForge</a>
           <a class="btn btn-ghost" href="https://github.com/razekteixeira/throughput">Source on GitHub</a>
         </div>
       </div>
@@ -347,7 +347,7 @@
           </ol>
         </div>
       </div>
-      <a class="btn btn-primary" data-curseforge href="https://github.com/razekteixeira/throughput">Coming soon to CurseForge</a>
+      <a class="btn btn-primary" href="https://www.curseforge.com/minecraft/mc-mods/throughput">Get it on CurseForge</a>
     </div>
   </section>
 
@@ -393,7 +393,7 @@
       <span class="pixel">Throughput</span>
     </div>
     <ul class="foot-links">
-      <li><a data-curseforge-link href="https://github.com/razekteixeira/throughput" hidden>CurseForge</a></li>
+      <li><a href="https://www.curseforge.com/minecraft/mc-mods/throughput">CurseForge</a></li>
       <li><a href="https://github.com/razekteixeira/throughput">GitHub</a></li>
       <li><a href="https://github.com/razekteixeira/throughput/issues">Report an issue</a></li>
     </ul>
@@ -443,25 +443,6 @@
   });
   dlg.addEventListener('close', function () { img.removeAttribute('src'); if (opener) opener.focus(); });
 })();
-</script>
-<script>
-// Until the CurseForge project is public its page would 404, so the buttons point at GitHub and say
-// "coming soon". CurseForge's own API needs a secret key, so this asks cfwidget (a public, CORS-enabled
-// mirror) and flips the buttons once the project is live; if cfwidget is down they stay on GitHub.
-fetch('https://api.cfwidget.com/minecraft/mc-mods/throughput').then(function (r) {
-  return r.ok ? r.json() : null;
-}).then(function (project) {
-  if (!project || !project.id) return;
-  var url = 'https://www.curseforge.com/minecraft/mc-mods/throughput';
-  document.querySelectorAll('[data-curseforge]').forEach(function (a) {
-    a.href = url;
-    a.textContent = 'Download on CurseForge';
-  });
-  document.querySelectorAll('[data-curseforge-link]').forEach(function (a) {
-    a.href = url;
-    a.hidden = false;
-  });
-}).catch(function () {});
 </script>
 </body>
 </html>

@@ -44,18 +44,15 @@ Upload in this order; mark the first one as featured.
 | `site/media/gallery-angle.png` | Any container | Chests, hoppers, furnaces and modded storage, read without client mods. |
 | `site/media/gallery-closeup.png` | One line up close | Input chest, hopper, furnace, hopper, output chest. |
 
-## 4. Wire up releases
+## 4. Releases
 
-1. Copy the numeric **Project ID** from the "About Project" panel into `gradle.properties`
-   (`curseforge_project_id=...`) and commit.
-2. Create an API token at [authors.curseforge.com → API tokens](https://authors.curseforge.com/#/settings/api-tokens)
-   and add it as the `CURSEFORGE_TOKEN` repository secret
-   (`gh secret set CURSEFORGE_TOKEN -R razekteixeira/throughput`).
-3. Swap the README's "coming soon" badge for the downloads badge:
-   `https://img.shields.io/curseforge/dt/<project id>?logo=curseforge&label=CurseForge`.
-4. Tag the release: `git tag v1.0.0-beta.1 && git push origin v1.0.0-beta.1`. The workflow builds,
+Already wired up: project ID `1733679` is in `gradle.properties`, the `CURSEFORGE_TOKEN`
+repository secret is set, and the README shows the CurseForge downloads badge.
+
+1. Tag the release: `git tag v1.0.0-beta.1 && git push origin v1.0.0-beta.1`. The workflow builds,
    runs every test, creates the GitHub release and uploads the jar to CurseForge as a beta
    (game version 26.3, Java 25, Fabric, client + server, requires Fabric API).
-5. The file shows as "Under review" until a CurseForge moderator approves it. The website's
-   buttons switch from "Coming soon" to "Download on CurseForge" by themselves once the project
-   is public.
+2. The file shows as "Under review" until a CurseForge moderator approves it.
+3. If the API token is ever replaced: create it at
+   [authors.curseforge.com → API tokens](https://authors.curseforge.com/#/settings/api-tokens) and
+   run `gh secret set CURSEFORGE_TOKEN -R razekteixeira/throughput`.

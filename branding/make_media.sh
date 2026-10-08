@@ -11,7 +11,6 @@ media=site/media
 frames=$(mktemp -d)
 trap 'rm -rf "$frames"' EXIT
 
-cp "$shots"/*_hero.png "$media/hero.png"
 cp "$shots"/*_stats.png "$media/stats.png"
 cp "$shots"/*_alerts.png "$media/alerts.png"
 for shot in angle night closeup; do

@@ -14,7 +14,8 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContex
 
 /**
  * Builds a small smelting floor in a real client and captures the media used on the project page:
- * {@code hero}, {@code stats}, {@code alerts} and the {@code watch_NNN} frames of the action bar GIF.
+ * {@code stats}, {@code alerts}, the {@code watch_NNN} frames of the action bar GIF and the
+ * {@code gallery_*} shots (angle, night, close-up).
  *
  * <p>Run with {@code ./gradlew runClientGameTest}; screenshots land in {@code build/run/clientGameTest/screenshots}.
  * Everything shown is real mod output from commands typed into chat, nothing is staged in an editor.
@@ -50,12 +51,6 @@ public class ThroughputCaptures implements FabricClientGameTest {
 			context.waitTicks(10);
 			context.getInput().lookAt(origin.above(2));
 			world.getConnection().waitForChunksRender();
-
-			clearChat(context);
-			context.getInput().pressKey(options -> options.keyToggleGui);
-			context.waitTicks(2);
-			context.takeScreenshot("hero");
-			context.getInput().pressKey(options -> options.keyToggleGui);
 
 			// Spectators render no hand or hotbar, so the chat shots show only the factory and the report.
 			server.runCommand("gamemode spectator @p");
