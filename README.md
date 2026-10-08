@@ -1,12 +1,5 @@
 <p align="center">
-  <img src="branding/icon-512.png" width="96" alt="Throughput icon">
-</p>
-
-<h1 align="center">Throughput</h1>
-
-<p align="center">
-  Factorio-style production statistics for any Minecraft factory.<br>
-  Per-item rates, history sparklines, time-to-empty and bottleneck alerts, right in chat.
+  <img src="site/media/readme-header.png" alt="Throughput: Factorio-style production stats for any Minecraft factory">
 </p>
 
 <p align="center">
@@ -24,7 +17,7 @@ second of game time Throughput measures what goes in and out, and tells you:
 
 - **how many per minute** you produce and consume, over 1m, 10m, 1h and 10h windows,
 - a **sparkline** of the history next to every item,
-- **when an input runs out** ("Raw Iron empty in about 22m 48s"),
+- **when an input runs out** ("Raw Iron empty in about 18m 50s"),
 - **what is backing up** (full outputs) and **what ran dry** (emptied inputs and buffers),
 - a live **action bar ticker** while you build.
 
@@ -35,8 +28,13 @@ exposes Fabric item storage, which covers vanilla containers and most tech mods.
 |---|---|
 | ![Grouped alerts in chat](site/media/alerts.png) | ![Live action bar ticker](site/media/watch.gif) |
 
-Every image here is a real capture from the game client, produced by
+| Night shift | Angled view | Close-up |
+|---|---|---|
+| ![Smelting floor at night](site/media/gallery-night.png) | ![Angled view of the smelting floor](site/media/gallery-angle.png) | ![Close-up of a furnace line](site/media/gallery-closeup.png) |
+
+Every screenshot here is a real capture from the game client, produced by
 [`ThroughputCaptures`](src/gametest/java/io/github/razekteixeira/throughput/gametest/client/ThroughputCaptures.java).
+The 3D logo is rendered in Blender from the icon's own pixels ([`branding/render_logo3d.py`](branding/render_logo3d.py)).
 
 ## Commands
 

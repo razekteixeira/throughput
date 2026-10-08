@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Regenerates site/media from a real client run. Usage: ./gradlew runClientGameTest && branding/make_media.sh
+# Regenerates site/media from a real client run.
+# Usage: caffeinate -dimsu ./gradlew runClientGameTest && branding/make_media.sh && python3 -P branding/make_banners.py
+# (caffeinate keeps macOS from sleeping the display, which stalls the client window)
 # Needs ffmpeg and ImageMagick. The chat panel text in site/index.html must be copied from the same run's
 # log lines "[System] [CHAT] Factory smelter ..." and "[System] [CHAT] Alerts for smelter ...".
 set -euo pipefail
@@ -12,6 +14,9 @@ trap 'rm -rf "$frames"' EXIT
 cp "$shots"/*_hero.png "$media/hero.png"
 cp "$shots"/*_stats.png "$media/stats.png"
 cp "$shots"/*_alerts.png "$media/alerts.png"
+for shot in angle night closeup; do
+	cp "$shots"/*_gallery_${shot}.png "$media/gallery-${shot}.png"
+done
 i=0
 find "$shots" -name '*_watch_*.png' | sort | while read -r f; do cp "$f" "$frames/$(printf '%03d' "$i").png"; i=$((i + 1)); done
 ffmpeg -loglevel error -y -framerate 4 -i "$frames/%03d.png" \

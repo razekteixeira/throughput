@@ -57,6 +57,11 @@ public class ThroughputCaptures implements FabricClientGameTest {
 			context.takeScreenshot("hero");
 			context.getInput().pressKey(options -> options.keyToggleGui);
 
+			// Spectators render no hand or hotbar, so the chat shots show only the factory and the report.
+			server.runCommand("gamemode spectator @p");
+			context.waitTicks(5);
+			clearChat(context);
+
 			typeCommand(context, world, "flow stats smelter 10m");
 			context.takeScreenshot("stats");
 			// Same reports through the server console, so the exact text lands in the log for the
@@ -75,6 +80,12 @@ public class ThroughputCaptures implements FabricClientGameTest {
 				context.waitTicks(5);
 				context.takeScreenshot("watch_%03d".formatted(frame));
 			}
+			typeCommand(context, world, "flow unwatch");
+			clearChat(context);
+
+			cinematic(context, world, server, origin, 12_000, origin.offset(-8, 2, -5), origin.offset(0, 2, 0), "gallery_angle");
+			cinematic(context, world, server, origin, 18_000, origin.offset(6, 2, -5), origin.offset(-1, 2, 0), "gallery_night");
+			cinematic(context, world, server, origin, 6_000, origin.offset(-3, 1, -3), origin.offset(-5, 2, 0), "gallery_closeup");
 		}
 	}
 
@@ -106,6 +117,20 @@ public class ThroughputCaptures implements FabricClientGameTest {
 			}
 			server.runCommand("item replace block %d %d %d container.1 with minecraft:coal 3".formatted(cx, y + 2, z));
 		}
+	}
+
+	/** A HUD-free shot from {@code eye} towards {@code target} at the given time of day. */
+	private static void cinematic(ClientGameTestContext context, TestSingleplayerContext world, TestServerContext server,
+			BlockPos origin, int timeOfDay, BlockPos eye, BlockPos target, String name) {
+		server.runCommand("time set " + timeOfDay);
+		server.runCommand("tp @p %.1f %d %.1f".formatted(eye.getX() + 0.5, eye.getY(), eye.getZ() + 0.5));
+		context.waitTicks(10);
+		context.getInput().lookAt(target);
+		world.getConnection().waitForChunksRender();
+		context.getInput().pressKey(options -> options.keyToggleGui);
+		context.waitTicks(20);
+		context.takeScreenshot(name);
+		context.getInput().pressKey(options -> options.keyToggleGui);
 	}
 
 	private static String jammedChest() {

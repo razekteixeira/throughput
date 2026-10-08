@@ -1,4 +1,4 @@
-![Throughput: a tracked smelter with its stats in chat](https://razekteixeira.github.io/throughput/media/hero.png)
+![Throughput: Factorio-style production stats for any Minecraft factory](https://razekteixeira.github.io/throughput/media/banner.png)
 
 # Throughput
 
@@ -26,14 +26,14 @@ Real output from the six-furnace floor in the screenshots below (one line jammed
 ```
 Factory smelter | last 10m (sampled 2m 30s) | 30 containers
 Produced per minute
-  +30.4 Iron Ingot ██████▇▇▇▇▇▇▇▇▁
+  +32.4 Iron Ingot ██████▇▇▇▇▇▇▇▇▇
 Consumed per minute
-  -30.4 Raw Iron ██████▇▇▇▇▇▇▇▇▁
-  -4.4 Coal ▁▁▁▁▁▁▁█▁▁▁▁▁▁▁
-Alerts for smelter (9)
+  -32.4 Raw Iron ██████▇▇▇▇▇▇▇▇▇
+  -2.0 Coal ▁▁▁▁▁▁▁█▁▁▁▁▁▁▁
+Alerts for smelter (10)
   BLOCKED 1 container full for 2m 31s (whatever feeds it backs up): 5 -60 8
-  RAN DRY 7 containers empty, longest 2m 29s (what they feed stalls once buffers drain): -5 -56 8, -5 -57 8, -3 -56 8 (+4 more)
-  RUNNING OUT Raw Iron empty in about 22m 48s
+  RAN DRY 8 containers empty, longest 2m 29s (what they feed stalls once buffers drain): -5 -57 8, -5 -56 8, -3 -56 8 (+5 more)
+  RUNNING OUT Raw Iron empty in about 18m 50s
 ```
 
 In game it is colour coded: green for produced, red for consumed, aqua sparklines, and a colour per alert kind.
@@ -44,12 +44,22 @@ In game it is colour coded: green for produced, red for consumed, aqua sparkline
 
 ![Live ticker on the action bar](https://razekteixeira.github.io/throughput/media/watch.gif)
 
+## Gallery
+
+The test factory: six furnace lines of chest, hopper, furnace, hopper, chest, 30 containers tracked as one factory.
+
+![The smelter factory at night, every furnace lit](https://razekteixeira.github.io/throughput/media/gallery-night.png)
+
+![Six identical furnace lines under one roof](https://razekteixeira.github.io/throughput/media/gallery-angle.png)
+
+![One furnace line up close](https://razekteixeira.github.io/throughput/media/gallery-closeup.png)
+
 ## Quick start
 
 ```
 /flow factory create smelter
 /flow addarea smelter ~-4 ~-1 ~-4 ~4 ~2 ~4
-/flow stats smelter 1h
+/flow stats smelter 10m
 ```
 
 ## Commands
@@ -82,6 +92,23 @@ Every second of game time, Throughput reads each tracked container and adds up t
 - **No phantom consumption.** A container that unloads or breaks contributes nothing, so an unloaded chunk never looks like your factory ate everything. It shows up as MISSING in alerts instead.
 - **Double chests count once.** Adding a double chest tracks both halves, and each half is read on its own.
 - **Game time, saved with the world.** Rates are per minute of game time and history survives restarts and pauses.
+
+## For server owners
+
+- **Fast:** a factory of 4,096 chests samples in about **1.75 ms** (median, measured with `tools/benchmark.sh`).
+- **Your data stays safe:** if saved data is from a newer version, unparseable, or cut short by a crash, Throughput backs it up, never overwrites it, and goes read-only until you sort it out.
+- **Config** in `config/throughput.json`, applied with `/flow reload`:
+
+```json
+{
+  "sampleIntervalSeconds": 1,
+  "alertAfterSeconds": 10,
+  "runningOutHorizonMinutes": 60,
+  "maxContainersPerFactory": 4096,
+  "maxAreaBlocks": 32768,
+  "permissionLevels": { "use": 0, "manage": 2, "coordinates": 2, "admin": 3 }
+}
+```
 
 ## Compatibility
 

@@ -11,9 +11,19 @@
 <meta property="og:title" content="Throughput">
 <meta property="og:description" content="Factorio-style production statistics for any Minecraft factory. Server-side Fabric mod.">
 <meta property="og:url" content="https://razekteixeira.github.io/throughput/">
-<meta property="og:image" content="https://razekteixeira.github.io/throughput/media/hero.png">
+<meta property="og:image" content="https://razekteixeira.github.io/throughput/media/social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Throughput logo over a Minecraft smelter line at night, with the tagline: Factorio-style production stats for any Minecraft factory.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Throughput">
+<meta name="twitter:description" content="Factorio-style production statistics for any Minecraft factory. Server-side Fabric mod.">
+<meta name="twitter:image" content="https://razekteixeira.github.io/throughput/media/social.png">
+<meta name="twitter:image:alt" content="Throughput logo over a Minecraft smelter line at night.">
 <link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="image" type="image/webp" href="media/gallery-night.webp" imagesrcset="media/gallery-night-640.webp 640w, media/gallery-night.webp 1280w" imagesizes="(max-width: 720px) 240vw, 100vw">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
@@ -31,8 +41,10 @@
     <nav aria-label="Sections">
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#counting">How it counts</a></li>
         <li><a href="#commands">Commands</a></li>
+        <li><a href="#owners">Server owners</a></li>
         <li><a href="#install">Install</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -43,33 +55,40 @@
 
 <main id="main">
 
-  <!-- Hero: copy left, in-game frame right with chat overlapping its lower edge -->
+  <!-- Hero: full-bleed night shot of the test factory, copy + 3D logo left, real chat output right -->
   <section class="hero" id="top">
+    <picture class="hero-bg" aria-hidden="true">
+      <source type="image/webp" srcset="media/gallery-night-640.webp 640w, media/gallery-night.webp 1280w" sizes="(max-width: 720px) 240vw, 100vw">
+      <img src="media/gallery-night.png" width="1280" height="720" alt="" fetchpriority="high">
+    </picture>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <h1 class="pixel">Throughput</h1>
+        <div class="hero-brand">
+          <picture>
+            <source type="image/webp" srcset="media/logo3d.webp">
+            <img class="logo3d" src="media/logo3d.png" width="600" height="628" alt="">
+          </picture>
+          <h1 class="pixel">Throughput</h1>
+        </div>
         <p class="pitch">Factorio-style production stats for any Minecraft factory.</p>
         <p class="sub">Group chests, furnaces and modded storage into a factory, then read per-item rates, history and alerts right in chat.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://modrinth.com/mod/throughput">Download on Modrinth</a>
+          <a class="btn btn-primary" data-modrinth href="https://github.com/razekteixeira/throughput">Coming soon to Modrinth</a>
           <a class="btn btn-ghost" href="https://github.com/razekteixeira/throughput">Source on GitHub</a>
         </div>
       </div>
 
       <div class="hero-visual">
-        <figure class="frame">
-          <img src="media/hero.png" width="1280" height="720" alt="A hopper-fed furnace setup tracked as the factory named smelter">
-        </figure>
-        <div class="chat" role="img" aria-label="Chat output of /flow stats smelter 10m and /flow alerts smelter, from the run shown in the screenshots">
+        <div class="chat" role="img" aria-label="Excerpt of the chat output of /flow stats smelter 10m and /flow alerts smelter from the factory in the background: 32.4 Iron Ingot produced and 32.4 Raw Iron consumed per minute, one blocked container, Raw Iron empty in about 18 minutes 50 seconds.">
           <p class="l"><span class="c-gold">Factory </span><span class="c-yellow b">smelter</span><span class="c-gray"> | last 10m (sampled 2m 30s) | 30 containers</span></p>
           <p class="l"><span class="c-green u">Produced per minute</span></p>
-          <p class="l"><span class="c-green">  +30.4 </span><span class="c-white">Iron Ingot</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▁</span></p>
+          <p class="l"><span class="c-green">  +32.4 </span><span class="c-white">Iron Ingot</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▇</span></p>
           <p class="l"><span class="c-red u">Consumed per minute</span></p>
-          <p class="l"><span class="c-red">  -30.4 </span><span class="c-white">Raw Iron</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▁</span></p>
-          <p class="l"><span class="c-red">  -4.4 </span><span class="c-white">Coal</span><span class="c-aqua spark"> ▁▁▁▁▁▁▁█▁▁▁▁▁▁▁</span></p>
-          <p class="l"><span class="c-gold">Alerts for </span><span class="c-yellow b">smelter</span><span class="c-gray"> (9)</span></p>
-          <p class="l"><span class="c-white">  </span><span class="c-red">BLOCKED </span><span class="c-gray">1 container full for 2m 31s</span></p>
-          <p class="l"><span class="c-white">  </span><span class="c-purple">RUNNING OUT </span><span class="c-white">Raw Iron</span><span class="c-gray"> empty in about 22m 48s</span></p>
+          <p class="l"><span class="c-red">  -32.4 </span><span class="c-white">Raw Iron</span><span class="c-aqua spark"> ██████▇▇▇▇▇▇▇▇▇</span></p>
+          <p class="l"><span class="c-red">  -2.0 </span><span class="c-white">Coal</span><span class="c-aqua spark"> ▁▁▁▁▁▁▁█▁▁▁▁▁▁▁</span></p>
+          <p class="l"><span class="c-gold">Alerts for </span><span class="c-yellow b">smelter</span><span class="c-gray"> (10)</span></p>
+          <p class="l"><span class="c-red">  BLOCKED </span><span class="c-gray">1 container full for 2m 31s</span></p>
+          <p class="l"><span class="c-purple">  RUNNING OUT </span><span class="c-white">Raw Iron</span><span class="c-gray"> empty in about 18m 50s</span></p>
         </div>
       </div>
     </div>
@@ -81,15 +100,15 @@
       <h2 class="pixel" id="captures-title">In game</h2>
       <div class="capture-grid">
         <figure class="cap cap-wide">
-          <img src="media/stats.png" width="1280" height="720" loading="lazy" alt="Stats report for a factory in Minecraft chat, with rates and sparklines">
+          <a class="shot" href="media/stats.png" data-full="media/stats.webp" data-caption="/flow stats smelter 10m: top items with per-minute rates and history."><picture><source type="image/webp" srcset="media/stats.webp"><img src="media/stats.png" width="1280" height="720" loading="lazy" decoding="async" alt="Stats report for the smelter factory in Minecraft chat, with rates and sparklines"></picture></a>
           <figcaption><code>/flow stats smelter 10m</code> Top items with per-minute rates and history.</figcaption>
         </figure>
         <figure class="cap">
-          <img src="media/alerts.png" width="1280" height="720" loading="lazy" alt="Alerts report listing a running-out input">
-          <figcaption><code>/flow alerts smelter</code> What is blocked, dry, missing or about to run out.</figcaption>
+          <a class="shot" href="media/alerts.png" data-full="media/alerts.webp" data-caption="/flow alerts smelter: blocked, dry, missing and running-out alerts."><picture><source type="image/webp" srcset="media/alerts.webp"><img src="media/alerts.png" width="1280" height="720" loading="lazy" decoding="async" alt="Alerts report in chat: a blocked container, eight dry containers and Raw Iron running out"></picture></a>
+          <figcaption><code>/flow alerts smelter</code> Blocked, dry, missing or about to run out.</figcaption>
         </figure>
         <figure class="cap">
-          <img src="media/watch.gif" width="1280" height="720" loading="lazy" alt="Live production ticker on the action bar">
+          <a class="shot" href="media/watch.gif" data-full="media/watch.gif" data-caption="/flow watch smelter: a live ticker on your action bar."><picture><img src="media/watch.gif" width="800" height="450" loading="lazy" decoding="async" alt="Live production ticker on the action bar, updating as the furnaces run"></picture></a>
           <figcaption><code>/flow watch smelter</code> A live ticker on your action bar while you build.</figcaption>
         </figure>
       </div>
@@ -105,9 +124,9 @@
           <h3>Per-item rates over four windows</h3>
           <p>Produced and consumed per minute, averaged over the last 1m, 10m, 1h or 10h, with a sparkline of the window next to every item.</p>
           <div class="windows" aria-hidden="true">
-            <span>1m</span><span>10m</span><span class="on">1h</span><span>10h</span>
+            <span>1m</span><span class="on">10m</span><span>1h</span><span>10h</span>
           </div>
-          <p class="mono-line" aria-hidden="true"><span class="c-green">+6.0</span> <span class="c-white">Iron Ingot</span> <span class="c-aqua spark">▆███████▅</span></p>
+          <p class="mono-line" aria-hidden="true"><span class="c-green">+32.4</span> <span class="c-white">Iron Ingot</span> <span class="c-aqua spark">██████▇▇▇▇▇▇▇▇▇</span></p>
         </article>
 
         <article class="cell cell-server tint">
@@ -139,6 +158,28 @@
           <h3>Safe to open to players</h3>
           <p>Anyone can read stats. Creating and editing factories needs operator permission, and alert coordinates are only shown to people allowed to see them.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery: the test factory, one large night shot + two stacked -->
+  <section class="gallery" id="gallery" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <h2 class="pixel" id="gallery-title">The test factory</h2>
+      <p class="lead">Six furnace lines of chest, hopper, furnace, hopper, chest: 30 containers tracked as one factory called smelter. The chat output and captures on this page come from it.</p>
+      <div class="gal-grid">
+        <figure class="gal gal-main">
+          <a class="shot" href="media/gallery-night.png" data-full="media/gallery-night.webp" data-caption="The smelter at night, every furnace lit."><picture><source type="image/webp" srcset="media/gallery-night-640.webp 640w, media/gallery-night.webp 1280w" sizes="(max-width: 720px) 100vw, 66vw"><img src="media/gallery-night.png" width="1280" height="720" loading="lazy" decoding="async" alt="The smelter factory at night: furnaces and lanterns glowing along a stone brick wall"></picture></a>
+          <figcaption>At night, with every furnace lit.</figcaption>
+        </figure>
+        <figure class="gal">
+          <a class="shot" href="media/gallery-angle.png" data-full="media/gallery-angle.webp" data-caption="Six identical lines: chest, hopper, furnace, hopper, chest."><picture><source type="image/webp" srcset="media/gallery-angle-640.webp 640w, media/gallery-angle.webp 1280w" sizes="(max-width: 720px) 100vw, 33vw"><img src="media/gallery-angle.png" width="1280" height="720" loading="lazy" decoding="async" alt="Angled daytime view of six furnace lines along a wall"></picture></a>
+          <figcaption>Six identical lines under one roof.</figcaption>
+        </figure>
+        <figure class="gal">
+          <a class="shot" href="media/gallery-closeup.png" data-full="media/gallery-closeup.webp" data-caption="One line up close. Moves between tracked containers cancel out."><picture><source type="image/webp" srcset="media/gallery-closeup-640.webp 640w, media/gallery-closeup.webp 1280w" sizes="(max-width: 720px) 100vw, 33vw"><img src="media/gallery-closeup.png" width="1280" height="720" loading="lazy" decoding="async" alt="Low close-up of one furnace line with a lit furnace between two hoppers"></picture></a>
+          <figcaption>Hopper moves inside the factory cancel out.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -226,11 +267,59 @@
           <tbody>
             <tr class="group"><th colspan="2" scope="colgroup">Read it</th></tr>
             <tr><td><code>stats &lt;factory&gt; [1m|10m|1h|10h]</code></td><td>Top produced and consumed items with rates and sparklines.</td></tr>
-            <tr><td><code>alerts &lt;factory&gt;</code></td><td>Blocked outputs, dry inputs, missing containers and time to empty.</td></tr>
+            <tr><td><code>alerts &lt;factory&gt; [all]</code></td><td>Blocked outputs, dry inputs, missing containers and time to empty, grouped per kind. <code>all</code> lists every container.</td></tr>
             <tr><td><code>watch &lt;factory&gt;</code></td><td>Live ticker on your action bar.</td></tr>
             <tr><td><code>unwatch</code></td><td>Stop the ticker.</td></tr>
           </tbody>
+          <tbody>
+            <tr class="group"><th colspan="2" scope="colgroup">Administer</th></tr>
+            <tr><td><code>reload</code></td><td>Reload <code>config/throughput.json</code> without a restart.</td></tr>
+          </tbody>
         </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Server owners: permissions, config, performance and data safety -->
+  <section class="owners" id="owners" aria-labelledby="owners-title">
+    <div class="wrap">
+      <h2 class="pixel" id="owners-title">For server owners</h2>
+      <div class="owners-grid">
+        <div class="own own-perm">
+          <h3>Permissions</h3>
+          <p>With a permissions mod, these nodes decide. Without one, the default operator levels apply.</p>
+          <dl class="perm">
+            <div><dt><code>throughput.use</code></dt><dd><span class="lvl">0</span>List, stats, alerts, watch</dd></div>
+            <div><dt><code>throughput.manage</code></dt><dd><span class="lvl">2</span>Create, edit and delete factories</dd></div>
+            <div><dt><code>throughput.coordinates</code></dt><dd><span class="lvl">2</span>See container positions in alerts</dd></div>
+            <div><dt><code>throughput.admin</code></dt><dd><span class="lvl">3</span>Reload the config</dd></div>
+          </dl>
+        </div>
+        <div class="own own-config">
+          <h3>Config</h3>
+          <p><code>config/throughput.json</code>, applied with <code>/flow reload</code>.</p>
+<pre class="term json"><code>{
+  <span class="j-k">"sampleIntervalSeconds"</span>: <span class="j-n">1</span>,
+  <span class="j-k">"alertAfterSeconds"</span>: <span class="j-n">10</span>,
+  <span class="j-k">"runningOutHorizonMinutes"</span>: <span class="j-n">60</span>,
+  <span class="j-k">"maxContainersPerFactory"</span>: <span class="j-n">4096</span>,
+  <span class="j-k">"maxAreaBlocks"</span>: <span class="j-n">32768</span>,
+  <span class="j-k">"permissionLevels"</span>: {
+    <span class="j-k">"use"</span>: <span class="j-n">0</span>, <span class="j-k">"manage"</span>: <span class="j-n">2</span>,
+    <span class="j-k">"coordinates"</span>: <span class="j-n">2</span>, <span class="j-k">"admin"</span>: <span class="j-n">3</span>
+  }
+}</code></pre>
+        </div>
+        <div class="own own-perf">
+          <div class="stat">
+            <p class="stat-num">1.75 ms</p>
+            <p class="stat-label">median time to sample a factory of 4,096 chests, measured with <code>tools/benchmark.sh</code>.</p>
+          </div>
+          <div class="safety">
+            <h3>Your data stays safe</h3>
+            <p>If saved data is from a newer version, unparseable, or cut short by a crash, Throughput backs it up, never overwrites it, and goes read-only until you sort it out.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -258,7 +347,7 @@
           </ol>
         </div>
       </div>
-      <a class="btn btn-primary" href="https://modrinth.com/mod/throughput">Download on Modrinth</a>
+      <a class="btn btn-primary" data-modrinth href="https://github.com/razekteixeira/throughput">Coming soon to Modrinth</a>
     </div>
   </section>
 
@@ -304,7 +393,7 @@
       <span class="pixel">Throughput</span>
     </div>
     <ul class="foot-links">
-      <li><a href="https://modrinth.com/mod/throughput">Modrinth</a></li>
+      <li><a data-modrinth-link href="https://github.com/razekteixeira/throughput" hidden>Modrinth</a></li>
       <li><a href="https://github.com/razekteixeira/throughput">GitHub</a></li>
       <li><a href="https://github.com/razekteixeira/throughput/issues">Report an issue</a></li>
     </ul>
@@ -312,5 +401,63 @@
     <p class="foot-disclaimer">NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
   </div>
 </footer>
+<dialog class="lb" id="lightbox" aria-label="Image viewer">
+  <figure class="lb-fig">
+    <img class="lb-img" src="" alt="">
+    <figcaption class="lb-cap"></figcaption>
+  </figure>
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous image">&lsaquo;</button>
+  <button class="lb-btn lb-next" type="button" aria-label="Next image">&rsaquo;</button>
+  <button class="lb-btn lb-close" type="button" aria-label="Close" autofocus>&times;</button>
+</dialog>
+<script>
+(function () {
+  var dlg = document.getElementById('lightbox');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  var shots = Array.prototype.slice.call(document.querySelectorAll('a.shot'));
+  var img = dlg.querySelector('.lb-img'), cap = dlg.querySelector('.lb-cap');
+  var index = 0, opener = null;
+  function show(i) {
+    index = (i + shots.length) % shots.length;
+    var a = shots[index], inner = a.querySelector('img');
+    img.src = a.getAttribute('data-full') || a.href;
+    img.alt = inner ? inner.alt : '';
+    cap.textContent = a.getAttribute('data-caption') || '';
+  }
+  shots.forEach(function (a, i) {
+    a.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      opener = a;
+      show(i);
+      dlg.showModal();
+    });
+  });
+  dlg.querySelector('.lb-prev').addEventListener('click', function () { show(index - 1); });
+  dlg.querySelector('.lb-next').addEventListener('click', function () { show(index + 1); });
+  dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+  });
+  dlg.addEventListener('close', function () { img.removeAttribute('src'); if (opener) opener.focus(); });
+})();
+</script>
+<script>
+// Until the Modrinth project is public its page would 404, so the buttons point at GitHub and say
+// "coming soon". Modrinth's public API returns 404 for drafts too, so this flips them on launch day.
+fetch('https://api.modrinth.com/v2/project/throughput').then(function (r) {
+  if (!r.ok) return;
+  document.querySelectorAll('[data-modrinth]').forEach(function (a) {
+    a.href = 'https://modrinth.com/mod/throughput';
+    a.textContent = 'Download on Modrinth';
+  });
+  document.querySelectorAll('[data-modrinth-link]').forEach(function (a) {
+    a.href = 'https://modrinth.com/mod/throughput';
+    a.hidden = false;
+  });
+}).catch(function () {});
+</script>
 </body>
 </html>
