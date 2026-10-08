@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.curseforge.com/minecraft/mc-mods/throughput"><img alt="CurseForge" src="https://img.shields.io/badge/CurseForge-coming%20soon-f16436?logo=curseforge&logoColor=white"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/throughput"><img alt="CurseForge" src="https://img.shields.io/curseforge/dt/1733679?logo=curseforge&label=CurseForge"></a>
   <a href="https://github.com/razekteixeira/throughput/actions/workflows/build.yml"><img alt="Build" src="https://github.com/razekteixeira/throughput/actions/workflows/build.yml/badge.svg"></a>
   <img alt="Minecraft 26.3" src="https://img.shields.io/badge/Minecraft-26.3-6aa84f">
   <img alt="Fabric" src="https://img.shields.io/badge/loader-Fabric-dbd0b4">
