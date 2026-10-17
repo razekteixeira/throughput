@@ -1,0 +1,23 @@
+{
+ "operations": [
+  {
+   "adopted_version": "2026-10-15+5",
+   "recorded_at": "2026-10-16T23:22:55+00:00",
+   "tool": "adopt-agentic-sdlc",
+   "wrote": [
+    {
+     "action": "create",
+     "file_digest": "sha256:91d25b97262b76dc2e29c74813d18a92",
+     "kind": "pointer-block",
+     "ownership": "method-owned-file",
+     "target": "AGENTS.md"
+    }
+   ]
+  }
+ ],
+ "region_markers": {
+  "begin": "<!-- BEGIN adopt-agentic-sdlc: managed region, edits here are replaced -->",
+  "end": "<!-- END adopt-agentic-sdlc -->"
+ },
+ "schema_version": 1
+}
