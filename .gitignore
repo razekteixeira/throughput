@@ -41,3 +41,18 @@ replay_*.log
 
 # logs written by tests and dev runs
 logs/
+
+# agentic-project:local-only:start
+# Local-only project state. These rules do not remove or untrack existing files.
+.secrets/
+.scratch/
+.tmp/
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.direnv/
+.venv/
+venv/
+# agentic-project:local-only:end
