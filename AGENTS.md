@@ -12,7 +12,7 @@ operational patterns):
 Adapt, do not copy: the central method governs the form; this project governs
 the local instantiation (stack, commands, thresholds).
 
-- adopted agentic_sdlc_version: 2026-10-15+5
+- adopted agentic_sdlc_version: 2026-10-15+6
 - Deltas since then: `https://github.com/brunofgsaraiva/agentic-suite-agnostic/CHANGELOG.md` (focus on the
   "Downstream impact" section).
 - Local adaptation (when it exists): see local instantiation note.

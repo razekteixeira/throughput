@@ -13,6 +13,20 @@
      "target": "AGENTS.md"
     }
    ]
+  },
+  {
+   "adopted_version": "2026-10-15+6",
+   "recorded_at": "2026-10-19T12:25:14+00:00",
+   "tool": "adopt-agentic-sdlc",
+   "wrote": [
+    {
+     "action": "replace-region",
+     "kind": "pointer-block",
+     "ownership": "managed-region",
+     "region_digest": "sha256:b8deea4f10b6c1ba2984f6f3ea99b4e5",
+     "target": "AGENTS.md"
+    }
+   ]
   }
  ],
  "region_markers": {
