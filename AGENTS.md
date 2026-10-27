@@ -36,7 +36,7 @@ operational patterns):
 Adapt, do not copy: the central method governs the form; this project governs
 the local instantiation (stack, commands, thresholds).
 
-- adopted agentic_sdlc_version: 2026-10-15+6
+- adopted agentic_sdlc_version: 2026-10-20
 - Deltas since then: `../../../agentic-suite-agnostic/CHANGELOG.md` (focus on the
   "Downstream impact" section).
 - Without the sibling checkout, the method is at
