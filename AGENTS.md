@@ -1,88 +1,32 @@
 # Source Code Agent Guide
 
-This repository contains the source code for Throughput. The sibling vault
-repository owns the project authority map and durable agent-facing synthesis.
-The project rules for code work are in the "Throughput" section at the end of
-this file; they apply to every agent (Claude Code, Codex, Cursor, others).
+This repository contains the source code for Throughput. The project rules for
+code work are in the "Throughput" section at the end of this file; they apply to
+every agent (Claude Code, Codex, Cursor, others). Everything needed for code work
+is in this file, `README.md` and `CONTRIBUTING.md`.
 
-This is a public repository. The vault is local only (no remote) and private.
-Cloud sessions and worktrees outside `personal/throughput/` will not find it:
-everything needed for code work is in this file, `README.md` and
-`CONTRIBUTING.md`. Never copy vault content into tracked files.
+## Notes
 
-## First Read
-
-1. Read this file.
-2. Read `../throughput-vault/Welcome.md`.
-3. Read `../throughput-vault/Vault Map.md`.
-4. Read `../throughput-vault/00 - Meta/Agent Guide.md`.
-5. Read `../throughput-vault/00 - Meta/Source Authority.md` and
-   `../throughput-vault/00 - Meta/Agentic Project Profile.json`.
-6. Read only the notes relevant to the task.
+This is a public repository. Personal working notes live in `.vault/` (Margin):
+local to the owner's machine, never committed. Never name, link or copy its
+content into tracked files.
 
 ## Source Hierarchy
 
 1. User request in the current conversation.
 2. Source-code repository rules in this file.
-3. The authority map and governed vault notes under `../throughput-vault/`.
-4. The owner's global agent instructions, when the runtime loads them.
-
-## SDLC method (central)
-
-This project adopts the central Agentic SDLC method. Source of truth for the
-method (profiles, phases, G0 Intake ready to G8 Learning captured gates,
-operational patterns):
-`../../../agentic-suite-agnostic/` (start with `00 - Map/Vault map.md`).
-Adapt, do not copy: the central method governs the form; this project governs
-the local instantiation (stack, commands, thresholds).
-
-- adopted agentic_sdlc_version: 2026-10-20
-- Deltas since then: `../../../agentic-suite-agnostic/CHANGELOG.md` (focus on the
-  "Downstream impact" section).
-- Without the sibling checkout, the method is at
-  `https://github.com/brunofgsaraiva/agentic-suite-agnostic`.
-- Local adaptation (when it exists): see local instantiation note,
-  `../throughput-vault/05 - Operations/SDLC Local Instantiation.md` (gates
-  mapping, thresholds, repeatability decisions). The gate commands needed for
-  code work are repeated in "Commands and gates" below.
-- Knowledge sync mode: authoritative-vault.
-- Knowledge navigation scale: small.
-- Adoption contract: `../../../agentic-suite-agnostic/ADOPTION.md`.
-- Agent entry rule: for delivery or coding work, use the `agentic-sdlc` gateway
-  before acting. If the runtime does not load skills automatically, read
-  `../../../agentic-suite-agnostic/skills/agentic-sdlc/SKILL.md` and follow it.
-
-<!-- agentic-project:runtime-profile:start -->
-## Agentic Project runtime defaults
-
-- Selected by default when available: `rtk-ai-cli`. Compress noisy development command output before it enters agent context.
-- These are project runtime preferences, not Agentic SDLC dependencies or gate
-  criteria. The user can opt out of a default for a task.
-- Explicit operator modes such as `modo-compacto` remain opt-in only.
-- Optional scaffold files for project type `product-tooling`: none, by declaration. Reason: Product tooling is reproduced by its own engineers from the repository's test path, so the reader-facing report adds a second, weaker surface.
-
-<!-- agentic-project:runtime-profile:end -->
+3. The owner's global agent instructions, when the runtime loads them.
 
 ## Rules
 
 - When reporting information to me, be extremely concise and sacrifice grammar for the sake of concision
 - Use EN-GB for project knowledge unless the user asks otherwise.
-- Follow the sibling vault's `00 - Meta/Source Authority.md` for persistent
-  knowledge, external facts, approvals and work state.
-- Preserve relative links between the source-code and vault repositories.
 - Keep raw source material, working notes and derived outputs separate.
-- Use `../throughput-vault/02 - Sources/raw/` as the unprocessed source inbox;
-  move ingested source files to `../throughput-vault/02 - Sources/raw/processed/`
-  and attachments to `../throughput-vault/02 - Sources/raw/assets/`.
 - Classify documentation code by role, not extension. This repository owns
   generators, themes and documentation applications that require a build,
-  dependencies, tests or deployment. Hand-authored HTML, CSS or JavaScript that
-  is itself human-readable documentation may belong in the sibling vault.
-- Do not edit generated documentation outputs directly. Record
-  `generated_from`, `build_command` and `output_path` in the vault operations
-  note.
-- If the sibling vault is unavailable, do not invent or silently replace its
-  decisions. Record the missing dependency and continue only with bounded code work.
+  dependencies, tests or deployment.
+- Do not edit generated outputs (`build/`, rendered media) directly; change the
+  sources or scripts and regenerate.
 - Repeatability rule: when a task, or a stable part of it, is reasonably
   expected to run more than once, the work is not complete until it leaves the
   smallest suitable deterministic path under version control. Reuse an existing
@@ -125,8 +69,8 @@ detail.
 ### Public repository
 
 - Everything tracked here is public. Never commit private notes, plans,
-  monetisation, outreach drafts or vault content; reference the vault only as
-  the local path `../throughput-vault/`, never from README, site or listings.
+  monetisation, outreach drafts or notes content; never mention the notes
+  folder from README, site or listings.
 - Secrets: `CURSEFORGE_TOKEN` exists only as a repository secret and is exposed
   to the publish step alone. Never put a token in `gradle.properties`, code,
   logs or screenshots.
@@ -165,7 +109,7 @@ detail.
   passes, new behaviour has a failing-without test, saved data format unchanged
   or bumped with a migration, screenshots regenerated when chat output changed.
 
-### Commands and gates (summary of the SDLC local instantiation)
+### Commands and gates
 
 - JDK 25 is required (CI uses Temurin 25 on ubuntu-24.04). Gradle comes with
   the wrapper; no Minecraft account is needed.
